@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
@@ -12,6 +14,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Getter@Setter
@@ -28,9 +31,12 @@ public class Cliente implements Serializable {
     private Integer id;
 
     @Column(nullable = false, length = 150)
+    @NotEmpty(message = "{campo.nome.obrigatorio}")
     private String nome;
 
     @Column(nullable = false, length = 11)
+    @NotNull(message = "{campo.cpf.obrigatorio}")
+    @CPF(message = "{campo.cpf.invalido}")
     private String cpf;
 
     @Column(name = "data_cadastro", updatable = false)
